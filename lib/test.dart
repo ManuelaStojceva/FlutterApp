@@ -7,16 +7,16 @@ class Test extends StatelessWidget {
         theme: ThemeData(
             primaryColor: Color(0xFF915FB5), accentColor: Color(0xFFCA436B)),
         debugShowCheckedModeBanner: false,
-        home: FormPage());
+        home: FormPageS());
   }
 }
 
-class FormPage extends StatefulWidget {
+class FormPageS extends StatefulWidget {
   @override
   _FormPageState createState() => _FormPageState();
 }
 
-class _FormPageState extends State<FormPage> {
+class _FormPageState extends State<FormPageS> {
   final textController = new TextEditingController();
   final text = "";
 
