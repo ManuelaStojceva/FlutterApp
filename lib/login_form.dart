@@ -1,3 +1,5 @@
+import 'package:first_flutter_app/logindata/ui/login_event.dart';
+import 'package:first_flutter_app/test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:kiwi/kiwi.dart' as kiwi;
 
 import 'block.dart';
 import 'logindata/ui/login_block.dart';
+import 'logindata/ui/login_state.dart';
 
 class FormPage extends StatefulWidget {
   @override
@@ -31,7 +34,25 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       bloc: _loginBloc,
-      child: _buildScaffold(),
+      child: MaterialApp(
+        home: BlocBuilder<LoginEvent, LoginState>(
+          bloc: _loginBloc,
+          builder: (context, LoginState state){
+            if(state.isInitial){
+              return _buildScaffold();
+            }
+            if(state.isLoading){
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if(state.isSuccess){
+              return Test();
+            }
+            return _buildScaffold();
+          },
+        ),
+      ),
     );
   }
   @override
@@ -99,7 +120,8 @@ class _FormPageState extends State<FormPage> {
                   onPressed: snapshot.hasData ? () => onLogin() : null,
                   child: Text("Login"),
                 ),
-              )
+              ),
+
             ],
           ),
         ),
